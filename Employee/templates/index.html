@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Saarthi.ai</title>
+ <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  </head>
+  <body>
+  <center>
+    <h2>New Employee Form</h2>
+    <p>
+      <button class="button" data-modal="employeeModal">Add A new Employee</button>
+    </p>
+  </center>
+    <div id="employeeModal" class="modal">
+      <div class="modal-content">
+        <div class="contact-form">
+            <a class="close"><img src="https://img.icons8.com/emoji/48/000000/cross-mark-emoji.png"/></a>
+          <form action="" method="post" enctype="multipart/form-data" id="employeeForm">{% csrf_token %}
+            <h2>Employee Form</h2>
+            <div>
+              <input class="fname" type="text" name="emp_name" placeholder="Enter Full name" required>
+              <input type="text" name="emp_id" placeholder="Enter Employee Id" required>
+                <select name="emp_dept" id="dept" required>
+                    <option value="Not Decided">Select a Department</option>
+                    <option value="Front End">Front End</option>
+                    <option value="Back End">Back End</option>
+                    <option value="Android">Android</option>
+                    <option value="Data Scientist">Data Scientist</option>
+                     <option value="Business Analyst">Business Analyst</option>
+                </select>
+              <input type="email" name="emp_email" placeholder="Enter Email" required>
+              <input type="date" name="emp_doj" placeholder="Enter Date Of Joining" required>
+            </div>
+            <button type="submit">Submit</button> <button type="reset" onclick="resetFormFunction()" >Clear</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  <!--Table of all the employees which added so far-->
+<div class="tableFixHead">
+  <table >
+    <tr>
+        <th>Remove </th>
+      <th>Full Name</th>
+      <th>Employee ID</th>
+      <th>Department</th>
+      <th>Email ID</th>
+      <th>DOJ</th>
+    </tr>
+      {% for employee in all_employee %}
+    <tr>
+      <td><a href="{% url 'remove' employee.id %}"><img src="https://img.icons8.com/color/48/000000/delete-sign--v2.png"/></a></td>
+      <td>{{employee.name}}</td>
+      <td>{{employee.eid}}</td>
+      <td>{{employee.dept}}</td>
+      <td>{{employee.email}}</td>
+      <td>{{employee.doj}}</td>
+    </tr>
+     {% endfor %}
+  </table>
+   </div>
+  <!--Table of Employee ended-->
+<script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>
